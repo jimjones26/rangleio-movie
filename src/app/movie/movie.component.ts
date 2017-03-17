@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Actor } from '../_models/actor.model';
+import * as Immutable from 'immutable';
 
 @Component({
   selector: 'app-movie',
@@ -8,11 +9,12 @@ import { Actor } from '../_models/actor.model';
       <h3>{{ title }}</h3>
       <p>
         <label>Actor:</label>
-        <span>{{actor.firstName}} {{actor.lastName}}</span>
+        <span>{{ actor.get('firstName') }} {{ actor.get('lastName') }}</span>
       </p>
-    </div>`
+    </div>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieComponent {
   @Input() title: string;
-  @Input() actor: Actor;
+  @Input() actor: Immutable.Map<string, string>;
 }
